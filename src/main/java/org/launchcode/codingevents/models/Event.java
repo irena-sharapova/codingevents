@@ -2,6 +2,7 @@ package org.launchcode.codingevents.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -26,13 +27,24 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
+    @NotBlank(message = "Location cannot be left blank.")
+    private String location;
+
+    private boolean requiresRegistration = true;
+
+    @Positive(message = "Number of attendees must be one or more.")
+    private int numberOfAttendees;
+
+
     private EventType type;
-    public Event(String name, String description, String contactEmail, EventType type) {
+    public Event(String name, String description, String contactEmail, EventType type, String location, int numberOfAttendees) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
         this.type = type;
+        this.location = location;
+        this.numberOfAttendees = numberOfAttendees;
     }
 
     public Event() {
@@ -68,9 +80,28 @@ public class Event {
         return type;
     }
 
+    @Positive(message = "Number of attendees must be one or more.")
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(@Positive(message = "Number of attendees must be one or more.") int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
+    }
+
+    public @NotBlank(message = "Location cannot be left blank.") String getLocation() {
+        return location;
+    }
+
+    public void setLocation(@NotBlank(message = "Location cannot be left blank.") String location) {
+        this.location = location;
+    }
+
     public void setType(EventType type) {
         this.type = type;
     }
+
+    public boolean isRequiresRegistration() { return requiresRegistration; }
 
     public int getId() {
         return id;

@@ -26,7 +26,7 @@
         </label>
         <p class="error" th:errors="${event.contactEmail}"></p>
     </div>
-    <br />
+    <br/>
 
     <div class="form-group">
         <label> Type
@@ -38,7 +38,32 @@
             </select>
         </label>
     </div>
-    <br />
+    <br/>
+
+    <div class="form-group">
+        <label>Location
+            <input th:field="${event.location}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.location}"></p>
+    </div>
+    <br/>
+    <!-- Requires Registration Field (checkbox or hidden field for true) -->
+    <div class="form-group">
+        <label>Requires Registration
+            <input type="checkbox" th:field="${event.requiresRegistration}" class="form-check-input">
+        </label>
+        <p class="error" th:errors="${event.requiresRegistration}"></p>
+    </div>
+    <br/>
+    <!-- Number of Attendees Field -->
+    <div class="form-group">
+        <label>Number of Attendees
+            <input th:field="${event.numberOfAttendees}" type="number" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.numberOfAttendees}"></p>
+    </div>
+    <br/>
+
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-success">
     </div>

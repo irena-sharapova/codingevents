@@ -1,9 +1,9 @@
 package org.launchcode.codingevents.controllers;
 
 import jakarta.validation.Valid;
+import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
-import org.launchcode.codingevents.models.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +26,14 @@ public class EventController {
         return "events/index";
     }
 
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
+
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
         model.addAttribute("title", "Create Event");
         model.addAttribute(new Event());
-        model.addAttribute("types", EventType.values());
+        model.addAttribute("categories", eventCategoryRepository.findAll());
         return "events/create";
     }
 
@@ -51,6 +54,12 @@ public class EventController {
         model.addAttribute("title", "Delete Events");
         model.addAttribute("events", eventRepository.findAll());
         return "events/delete";
+    }
+
+    @GetMapping("test")
+    public String testCategories() {
+        System.out.println("Categories: " + eventCategoryRepository.findAll());
+        return "events/create";
     }
 
     @PostMapping("delete")

@@ -42,7 +42,8 @@ public class EventController {
             }
         }
 
-            return "events/index";
+
+        return "events/index";
         }
 
 

@@ -41,6 +41,7 @@ public class EventController {
                 model.addAttribute("events", category.getEvents());
             }
         }
+
             return "events/index";
         }
 

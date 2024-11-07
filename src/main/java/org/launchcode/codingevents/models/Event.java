@@ -14,14 +14,9 @@ import java.util.Objects;
 @Entity
 public class Event extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private int id;
-
     @NotBlank(message = "Name is required")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
-
 
 
     @Size(max = 500, message = "Description too long!")
@@ -32,7 +27,7 @@ public class Event extends AbstractEntity {
     private String contactEmail;
 
     @ManyToOne
-    @NotNull(message = "Cetegory is required")
+    @NotNull(message = "Category is required")
     private EventCategory eventCategory;
 
     public Event(String name, String description, String contactEmail, EventCategory eventCategory) {

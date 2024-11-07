@@ -22,6 +22,9 @@ public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
+
     @GetMapping
     public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model) {
 
@@ -42,16 +45,10 @@ public class EventController {
         }
 
 
-    @Autowired
-    private EventCategoryRepository eventCategoryRepository;
-
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
-        System.out.println("Displaying Create Event Form");
-        System.out.println("Categories: " + eventCategoryRepository.findAll());
-
-//        model.addAttribute("title", "Create Event");
-        model.addAttribute( "event", new Event());
+        model.addAttribute("title", "Create Event");
+        model.addAttribute( new Event());
         model.addAttribute("categories", eventCategoryRepository.findAll());
         return "events/create";
     }
@@ -59,12 +56,9 @@ public class EventController {
     @PostMapping("create")
     public String processCreateEventForm(@ModelAttribute @Valid Event newEvent,
                                          Errors errors, Model model) {
-        System.out.println("Processing form submission...");
-        System.out.println("Event Category: " + newEvent.getEventCategory());
 
         if(errors.hasErrors()) {
             model.addAttribute("title", "Create Event");
-            model.addAttribute("categories", eventCategoryRepository.findAll());
             return "events/create";
         }
 
@@ -79,11 +73,11 @@ public class EventController {
         return "events/delete";
     }
 
-    @GetMapping("test")
-    public String testCategories() {
-        System.out.println("Categories: " + eventCategoryRepository.findAll());
-        return "events/create";
-    }
+//    @GetMapping("test")
+//    public String testCategories() {
+//        System.out.println("Categories: " + eventCategoryRepository.findAll());
+//        return "events/create";
+//    }
 
     @PostMapping("delete")
     public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
